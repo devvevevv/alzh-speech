@@ -6,6 +6,7 @@ EVAL_CONTROL_PATH = r"..\data\processed\linguistic_features\control\eval_control
 EVAL_AD_PATH = r"..\data\processed\linguistic_features\dementia\eval_dementia.csv"
 FLUCALC_CONTROL_PATH = r"..\data\processed\linguistic_features\control\flucalc_control.csv"
 FLUCALC_AD_PATH = r"..\data\processed\linguistic_features\dementia\flucalc_dementia.csv"
+OUTPUT_PATH = r"..\data\features.csv"
 
 EVAL_SELECTED_FEATURES = [
     "Age", "Sex", "Group",
@@ -68,10 +69,17 @@ if "Sex" in df.columns:
 X = df.drop(columns = ["Label"])
 y = df["Label"]
 
+feature_columns = X.columns
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
 
+df_cleaned = pd.DataFrame(X, columns=feature_columns)
+df_cleaned["Label"] = y.values
+df_cleaned.to_csv(OUTPUT_PATH, index=False)
+
+print("Preprocessing complete.")
 print("Train shape:", X_train.shape)
 print("Test shape:", X_test.shape)
+print(f"Saved cleaned dataset to: {OUTPUT_PATH}")
