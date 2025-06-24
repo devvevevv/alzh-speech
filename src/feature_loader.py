@@ -3,12 +3,12 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 
-FILE_PATH = r"..\data\features.csv"
+FEATURES_PATH = r"..\data\features.csv"
 
 class SpeechFeatureDataset(Dataset):
     def __init__(self, features, label):
-        self.X = torch.tensor(features, dtype = torch.float32)
-        self.y = torch.tensor(label, dtype = torch.long)
+        self.X = torch.tensor(features.values, dtype = torch.float32)
+        self.y = torch.tensor(label.values, dtype = torch.long)
 
     def __len__(self):
         return len(self.y)
@@ -16,7 +16,7 @@ class SpeechFeatureDataset(Dataset):
     def __getitem__(self, idx):
         return self.X[idx], self.y[idx]
 
-def get_dataloaders(FILE_PATH):
+def get_dataloaders():
 
     """
     Load the preprocessed features dataset, split it into training and testing sets,
@@ -26,7 +26,7 @@ def get_dataloaders(FILE_PATH):
     :return: pytorch DataLoaders
     """
 
-    df = pd.read_csv(FILE_PATH)
+    df = pd.read_csv(FEATURES_PATH)
 
     X = df.drop(columns = ["Label"])
     y = df["Label"]
