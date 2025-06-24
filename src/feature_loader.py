@@ -22,7 +22,6 @@ def get_dataloaders():
     Load the preprocessed features dataset, split it into training and testing sets,
     and return PyTorch DataLoaders for each.
 
-    :param FILE_PATH: str, path to csv file
     :return: pytorch DataLoaders
     """
 
