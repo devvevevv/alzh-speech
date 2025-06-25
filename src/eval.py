@@ -3,9 +3,9 @@ from feature_loader import  *
 from model import *
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-SAVED_MODEL_PATH = "../results/models/alzh_speech_nn.pt"
+SAVED_MODEL_PATH = "../results/models/alzh_speech.pt"
 
-_, test_loader = get_dataloaders()
+_, test_loader, _ = get_dataloaders()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = AlzhSpeechNN().to(device)

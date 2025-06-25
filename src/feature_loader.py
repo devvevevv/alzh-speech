@@ -32,10 +32,12 @@ def get_dataloaders():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
 
+    train_labels_array = y_train.values
+
     train_set = SpeechFeatureDataset(X_train, y_train)
     test_set = SpeechFeatureDataset(X_test, y_test)
 
     train_loader = DataLoader(train_set, batch_size = 32, shuffle = True)
     test_loader = DataLoader(test_set, batch_size = 32, shuffle = False)
 
-    return train_loader, test_loader
+    return train_loader, test_loader, train_labels_array
