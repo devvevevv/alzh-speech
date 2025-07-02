@@ -1,9 +1,9 @@
 import numpy as np
-from feature_loader import  *
+from loader import  *
 from model import *
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-SAVED_MODEL_PATH = "../results/models/alzh_speech.pt"
+SAVED_MODEL_PATH = "../results/models/model.pt"
 
 _, test_loader, _ = get_dataloaders()
 
