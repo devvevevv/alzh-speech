@@ -1,4 +1,4 @@
-from feature_loader import *
+from loader import *
 from model import *
 import numpy as np
 from sklearn.utils.class_weight import compute_class_weight
@@ -6,14 +6,14 @@ from sklearn.utils.class_weight import compute_class_weight
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print (f"Using device: {device}")
 
-MODEL_SAVE_PATH = r"..\results\models\model_with_class_weight.pt"
+MODEL_SAVE_PATH = r"..\results\models\model.pt"
 
 train_loader, _, train_labels_array = get_dataloaders()
 
 model = AlzhSpeechNN().to(device)
 weights = compute_class_weight('balanced', classes =np.array([0,1]), y = train_labels_array)
 criterion = torch.nn.CrossEntropyLoss(weight = torch.tensor(weights, dtype = torch.float32).to(device))
-optimizer = torch.optim.Adam(model.parameters(), lr=0.004)
+optimizer = torch.optim.AdamW(model.parameters(), lr=0.004, weight_decay = 1e-5)
 num_epochs = 60
 
 for epoch in range(num_epochs):
